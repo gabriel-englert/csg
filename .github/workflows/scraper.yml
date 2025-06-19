@@ -1,0 +1,35 @@
+name: Teste scraper 21h20
+
+on:
+  schedule:
+    - cron: '20 0 * * *'  # 21:20h BRT = 00:20h UTC
+  workflow_dispatch:      # também permite rodar manualmente no GitHub
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Rodar o scraper
+        run: |
+          python scraper.py
+
+      - name: Fazer commit e push do novo CSV
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/avisos.csv
+          git commit -m "Atualização automática do CSV via GitHub Actions"
+          git push
