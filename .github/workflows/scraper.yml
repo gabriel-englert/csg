@@ -2,7 +2,7 @@ name: Teste scraper 21h20
 
 on:
   schedule:
-    - cron: '05 1 * * *'  # 22:00 BRT
+    - cron: '20 11 * * *'  # 21:20h BRT = 00:20h UTC
   workflow_dispatch:      # também permite rodar manualmente no GitHub
 
 jobs:
