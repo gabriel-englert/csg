@@ -8,7 +8,7 @@ st.title("📍 Avisos de Rodovias - CSG")
 st.write("Última atualização automática às 8h da manhã.")
 
 try:
-    df = pd.read_csv("data/avisos_rodovias.csv")
+    df = pd.read_csv("data/avisos.csv")
     st.dataframe(df, use_container_width=True)
 
     csv = df.to_csv(index=False).encode("utf-8")
