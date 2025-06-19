@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from datetime import date
+from datetime import datetime
 import os
+import pytz
 
 def scrape():
     url = "https://csg.com.br"
@@ -14,7 +15,9 @@ def scrape():
 
     rodovia = None
     impacto = None
-    data_coleta = date.today().isoformat()
+    
+    brasilia_tz = pytz.timezone('America/Sao_Paulo')
+    data_coleta = datetime.now(brasilia_tz).date().isoformat()
 
     avisos = []
 
