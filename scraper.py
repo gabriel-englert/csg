@@ -34,9 +34,20 @@ def scrape():
                 "aviso": linha
             })
 
-    df = pd.DataFrame(avisos)
+
+    df_novo = pd.DataFrame(avisos)
+
     os.makedirs("data", exist_ok=True)
-    df.to_csv("data/avisos.csv", index=False)
+    path_csv = "data/avisos.csv"
+
+    if os.path.exists(path_csv):
+        df_antigo = pd.read_csv(path_csv)
+        df_final = pd.concat([df_antigo, df_novo], ignore_index=True)
+        df_final.drop_duplicates(subset=["data_coleta", "rodovia", "impacto", "aviso"], inplace=True)
+    else:
+        df_final = df_novo
+
+    df_final.to_csv(path_csv, index=False)
     print("Atualizado com sucesso!")
 
 
