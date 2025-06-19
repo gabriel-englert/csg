@@ -2,8 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from datetime import date
+import os
 
-def scrape_csg():
+def scrape():
     url = "https://csg.com.br"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html.parser")
@@ -31,9 +32,10 @@ def scrape_csg():
             })
 
     df = pd.DataFrame(avisos)
-    df.to_csv("avisos_rodovias.csv", index=False)
-    return df
-df = scrape_csg()
+    os.makedirs("data", exist_ok=True)
+    df.to_csv("data/avisos.csv", index=False)
+    print("Atualizado com sucesso!")
 
 
-print(df)
+if __name__ == "__main__":
+    scrape()
